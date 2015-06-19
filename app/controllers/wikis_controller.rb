@@ -1,7 +1,7 @@
 class WikisController < ApplicationController
   
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
     authorize @wikis
   end
   
@@ -19,6 +19,7 @@ class WikisController < ApplicationController
   
   def show
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
   
   def destroy
@@ -30,6 +31,7 @@ class WikisController < ApplicationController
   
   def new
     @wiki = Wiki.new
+    authorize @wiki
   end
   
   def create

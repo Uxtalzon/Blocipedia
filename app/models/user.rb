@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable, :confirmable
   
+  has_many :wikis
+  
   def after_initialize 
     return unless new_record?
     self.status = ACTIVE
