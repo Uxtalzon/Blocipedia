@@ -8,23 +8,18 @@
 </head>
 <body>
   <div class="pull-right">
-    <h3><u><% if current_user %>
-      <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+    <h3><u><% if current_user && current_user.role == "premium" %>
+      <%= link_to "Downgrade", users_downgrade_path, data: { method: :post, confirm: "ARE YOU SURE?" } %>  
+      <% end %>
+     <% if current_user %>
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
      <% else %>
-      <%= link_to "Sign In", new_user_session_path %> 
-      <% end %></u></h3>
+        <%= link_to "Sign In", new_user_session_path %> 
+     <% end %></u></h3>
   </div>
   
 <div class="container">
-  
-<%= yield %>
-
-</div>
-  
-</body>
-</html>
-
-<% if flash[:notice] %>
+  <% if flash[:notice] %>
 <div class="alert alert-success">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
   <%= flash[:notice] %>
@@ -40,3 +35,11 @@
   <%= flash[:alert] %>
 </div>
 <% end %>
+
+  
+<%= yield %>
+
+</div>
+  
+</body>
+</html>
