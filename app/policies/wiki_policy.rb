@@ -25,4 +25,8 @@ class WikiPolicy < ApplicationPolicy
   def update?
     edit?
   end
+  
+  def destroy?
+    user.present? && user.admin? || user.premium?
+  end
 end
