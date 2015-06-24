@@ -35,7 +35,7 @@ class WikisController < ApplicationController
   end
   
   def create
-    @wiki = Wiki.create(wiki_params)
+    @wiki = current_user.wikis.create(wiki_params)
     authorize @wiki
     redirect_to wikis_path(@wiki)
   end
